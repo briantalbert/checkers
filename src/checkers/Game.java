@@ -36,9 +36,25 @@ public class Game {
     }
 
     private boolean isValidMove(Move move) {
-        // Implement the logic to check if the move is valid on the current board
-        // This should consider the rules of the Checkers game (e.g., capturing, kinging, etc.)
-        // Return true if the move is valid, otherwise false.
+    	int x1 = move.getStartX();
+    	int x2 = move.getEndX();
+    	
+    	int y1 = move.getStartY();
+    	int y2 = move.getEndY();
+    	
+    	//Are both the start and end squares valid?
+        if (!board.isPositionValid(x1, y1)) {
+        	return false;
+        } else if (!board.isPositionValid(x2, y2)) {
+        	return false;
+        }
+        
+        //Is there a piece on the start square?
+        //Does it belong to the current player?
+        Piece piece = board.getPieceAtPosition(x1, y1);
+        if (piece == null || piece.getColor() != currentPlayer.getColor()) {
+            return false;
+        }
     }
 
     private void makeMove(Move move) {
