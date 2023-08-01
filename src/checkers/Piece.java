@@ -1,17 +1,15 @@
 package checkers;
 
-import java.awt.Color;
-
 public class Piece {
-    private Color color;
+    private String color;
     private boolean isKing;
 
-    public Piece(Color color) {
-        this.color = color;
+    public Piece(String color2) {
+        this.color = color2;
         this.isKing = false;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 

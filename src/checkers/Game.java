@@ -10,9 +10,9 @@ public class Game {
     private boolean isGameOver;
 
     public Game() {
-        board = new Board();
         player1 = new Player(Color.RED); // Assuming Red starts the game
         player2 = new Player(Color.BLACK);
+        board = new Board(player1, player2);
         currentPlayer = player1;
         isGameOver = false;
     }
@@ -55,6 +55,52 @@ public class Game {
         if (piece == null || piece.getColor() != currentPlayer.getColor()) {
             return false;
         }
+        
+        //Is the end square empty?
+        if (!board.isCellEmpty(x2, y2)) {
+            return false;
+        }
+        
+        //Is the move the same number of spaces X and Y?
+        if (Math.abs(x2 - x1) != Math.abs(y2 - y1)) {
+        	return false;
+        }
+        
+        //If they moved 2 squares, is it a valid capture?
+        if (x2 - x1 == 2) {
+        	//Moved southeast
+        	if (y2 - y1 == 2) {
+        		piece = board.getPieceAtPosition(x1 + 1, y1 + 1);
+        		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
+        	            return false;
+        	        }
+            //moved southwest
+        	} else if (y2 - y1 == -2) {
+        		piece = board.getPieceAtPosition(x1 + 1, y1 - 1);
+       		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
+       	            return false;
+       	        }
+        	}        	
+        }
+        
+        if (x2 - x1 == -2) {
+        	//Moved northeast
+        	if (y2 - y1 == 2) {
+        		piece = board.getPieceAtPosition(x1 - 1, y1 + 1);
+        		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
+        	            return false;
+        	        }
+            //moved northwest
+        	} else if (y2 - y1 == -2) {
+        		piece = board.getPieceAtPosition(x1 - 1, y1 - 1);
+       		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
+       	            return false;
+       	        }
+        	}        	
+        }
+        
+        return true;
+        
     }
 
     private void makeMove(Move move) {

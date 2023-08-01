@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private Color color;
+    private String color;
     private List<Piece> pieces;
 
-    public Player(Color color) {
+    public Player(String color) {
         this.color = color;
         pieces = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
@@ -17,7 +17,7 @@ public class Player {
         }
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 

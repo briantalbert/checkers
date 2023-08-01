@@ -4,12 +4,12 @@ public class Board {
     private static final int BOARD_SIZE = 8;
     private Piece[][] pieces;
 
-    public Board() {
+    public Board(Player player1, Player player2) {
         pieces = new Piece[BOARD_SIZE][BOARD_SIZE];
-        initializeBoard();
+        initializeBoard(player1, player2);
     }
 
-    private void initializeBoard() {
+    private void initializeBoard(Player player1, Player player2) {
         // Initialize Red pieces
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
