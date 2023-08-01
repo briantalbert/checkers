@@ -12,7 +12,7 @@ public class Move {
         this.endX = endX;
         this.endY = endY;
     }
-
+    
     // Getters and setters for the fields (if needed)
 
     public int getStartX() {
@@ -52,4 +52,4 @@ public class Move {
         return "Move: (" + startX + ", " + startY + ") -> (" + endX + ", " + endY + ")";
     }
 }
-
+ 

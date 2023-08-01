@@ -14,7 +14,7 @@ public class Board {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 if ((row + col) % 2 != 0) { // Place pieces on alternate cells for a checkerboard pattern
-                    Piece redPiece = new Piece(Color.RED);
+                    Piece redPiece = new Piece("red");
                     pieces[row][col] = redPiece;
                     player1.addPiece(redPiece);
                 }
@@ -25,12 +25,13 @@ public class Board {
         for (int row = 5; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 if ((row + col) % 2 != 0) { // Place pieces on alternate cells for a checkerboard pattern
-                    Piece blackPiece = new Piece(Color.BLACK);
+                    Piece blackPiece = new Piece("black");
                     pieces[row][col] = blackPiece;
                     player2.addPiece(blackPiece);
                 }
             }
         }
+        this.printBoard();
     }
 
 
@@ -72,7 +73,7 @@ public class Board {
         // Return true if the cell is occupied by a king piece, otherwise false.
     }
 
-    public boolean isCellValidForPromotion(int x, int y, Color color) {
+    public boolean isCellValidForPromotion(int x, int y, String color) {
         // Implement the logic to check if a given cell (x, y) on the board is valid for piece promotion
         // For example, a red piece reaching the last row of the board should be promoted to a king piece.
         // Return true if the cell is valid for promotion, otherwise false.
@@ -83,7 +84,31 @@ public class Board {
     }
 
     public void printBoard() {
-        // Implement the logic to print the current state of the board to the console
-        // This is for debugging and display purposes.
+        System.out.println("    0  1  2  3  4  5  6  7");
+        System.out.println("  +------------------------");
+        for (int row = 0; row < BOARD_SIZE; row++) {
+        	System.out.print(row + " | ");
+        	for (int col = 0; col < BOARD_SIZE; col++) {
+        		Piece piece = pieces[row][col];
+        		if (piece != null) {
+        			if (piece.getColor() == "red") {
+        				if (piece.isKing()) {
+        					System.out.print("RK ");
+        				} else {
+        					System.out.print("R  ");
+        				}
+        			} else if (piece.getColor() == "black") {
+        				if (piece.isKing()) {
+        					System.out.print("BK ");
+        				} else {
+        					System.out.print("B  ");
+        				}
+        			}
+        		} else {
+        			System.out.print(".  ");
+        		}
+        	}
+        	System.out.println();
+        }
     }
 }

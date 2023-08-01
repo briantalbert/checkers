@@ -1,17 +1,19 @@
 package checkers;
 
-import java.awt.Color;
-
 public class Game {
     private Board board;
     private Player currentPlayer;
     private Player player1;
     private Player player2;
     private boolean isGameOver;
-
+    
+    public static void main(String[] args) {
+    	Game game = new Game();
+    	//game.start();
+    }
     public Game() {
-        player1 = new Player(Color.RED); // Assuming Red starts the game
-        player2 = new Player(Color.BLACK);
+        player1 = new Player("red"); // Assuming Red starts the game
+        player2 = new Player("black");
         board = new Board(player1, player2);
         currentPlayer = player1;
         isGameOver = false;
@@ -99,11 +101,16 @@ public class Game {
         	}        	
         }
         
-        return true;
-        
+        return true;   
     }
 
     private void makeMove(Move move) {
+    	int x1 = move.getStartX();
+    	int x2 = move.getEndX();
+    	
+    	int y1 = move.getStartY();
+    	int y2 = move.getEndY();
+    	System.out.println(x1 + x2 + y1 + y2);
         // Implement the logic to update the board based on the move
         // This should update the positions of pieces, handle captures, and promote kings.
     }
