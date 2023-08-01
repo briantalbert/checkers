@@ -9,6 +9,7 @@ public class Board {
         initializeBoard(player1, player2);
     }
 
+    //Initialize pieces for both players, place them on the board.
     private void initializeBoard(Player player1, Player player2) {
         // Initialize Red pieces
         for (int row = 0; row < 3; row++) {
@@ -34,55 +35,85 @@ public class Board {
         this.printBoard();
     }
 
-
+    //Return true if the position is on a standard checkerboard.
     public boolean isPositionValid(int x, int y) {
-        if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+        if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
         	return true;
         } else {
         	return false;
         }
     }
-
+    
+    // Return the piece object if it exists at the specified position, otherwise return null.
     public Piece getPieceAtPosition(int x, int y) {
-        // Implement the logic to get the piece at a given position (x, y) on the board
-        // Return the piece object if it exists at the specified position, otherwise return null.
+    	if (pieces[x][y] == null) {
+    		return null;
+    	}
+    	
+    	return pieces[x][y];
     }
-
+    
+    //Set a piece on a given square. Confirm validity of move first.
     public void setPieceAtPosition(int x, int y, Piece piece) {
-        // Implement the logic to set a piece at a given position (x, y) on the board
-        // This is used when moving pieces or capturing opponent pieces.
+        pieces[x][y] = piece;
     }
-
+    
+    //Remove a piece from a given square.
     public void removePieceAtPosition(int x, int y) {
-        // Implement the logic to remove a piece at a given position (x, y) from the board
-        // This is used when a piece is captured or moved.
+        if (pieces[x][y] != null) {
+        	pieces[x][y] = null;
+        }
     }
-
+    
+    // Return true if the cell is empty (no piece), otherwise false.
     public boolean isCellEmpty(int x, int y) {
-        // Implement the logic to check if a given cell (x, y) on the board is empty
-        // Return true if the cell is empty (no piece), otherwise false.
+        if (pieces[x][y] == null) {
+        	return true;
+        }
+        
+        return false;
+        
     }
 
+    //Return true if specified cell has an opponent's piece on it
     public boolean isCellOccupiedByOpponent(int x, int y, Player currentPlayer) {
-        // Implement the logic to check if a given cell (x, y) on the board is occupied by the opponent's piece
-        // Return true if the cell is occupied by an opponent's piece, otherwise false.
+        if (pieces[x][y] == null) {
+        	return false;
+        } else if (pieces[x][y].getColor() == currentPlayer.getColor()) {
+        	return false;
+        }
+        
+        return true;
     }
-
+    
+    //Return true if specified cell is occupied by a king.
     public boolean isCellOccupiedByKing(int x, int y) {
-        // Implement the logic to check if a given cell (x, y) on the board is occupied by a king piece
-        // Return true if the cell is occupied by a king piece, otherwise false.
+        if (pieces[x][y].isKing()) {
+        	return true;
+        }
+        
+        return false;
     }
-
-    public boolean isCellValidForPromotion(int x, int y, String color) {
-        // Implement the logic to check if a given cell (x, y) on the board is valid for piece promotion
-        // For example, a red piece reaching the last row of the board should be promoted to a king piece.
-        // Return true if the cell is valid for promotion, otherwise false.
+    
+    //Check if piece can be promoted to king. If a red piece gets to the last row, it is 
+    //valid for promotion. If a black piece gets to the top row, it is valid for 
+    //promotion.
+    public boolean isCellValidForPromotion(int x, String color) {
+        if (color == "red" && x == 7) {
+        	return true;
+        } else if (color == "black" && x == 0) {
+        	return true;
+        }
+        
+        return false;
     }
-
+    
+    //Set piece as king
     public void promoteToKing(int x, int y) {
-        // Implement the logic to promote a regular piece at a given cell (x, y) to a king piece
+        pieces[x][y].setKing(true);
     }
-
+    
+    //Print the board to console.
     public void printBoard() {
         System.out.println("    0  1  2  3  4  5  6  7");
         System.out.println("  +------------------------");

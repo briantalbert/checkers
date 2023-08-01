@@ -4,8 +4,8 @@ public class Piece {
     private String color;
     private boolean isKing;
 
-    public Piece(String color2) {
-        this.color = color2;
+    public Piece(String newColor) {
+        this.color = newColor;
         this.isKing = false;
     }
 
