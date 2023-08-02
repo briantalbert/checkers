@@ -31,6 +31,11 @@ public class Piece {
     public boolean isKing() {
         return isKing;
     }
+    
+    public void setPosition(int x, int y) {
+    	this.row = x;
+    	this.col = y;
+    }
 
     public void setKing(boolean king) {
         isKing = king;

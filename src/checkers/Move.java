@@ -61,41 +61,36 @@ public class Move {
         } else if (!board.isPositionValid(x2, y2)) {
         	return false;
         }
-        
-//        System.out.println(this.toString());
-//        System.out.println("Both start and end squares valid.");
-        
+            
         //Is there a piece on the start square?
         //Does it belong to the current player?
         Piece piece = board.getPieceAtPosition(x1, y1);
         if (piece == null || piece.getColor() != currentPlayer.getColor()) {
             return false;
         }
-//        System.out.println(this.toString());
-//        System.out.println("The piece on the start square is " + piece.getColor() + " and belongs to the " + currentPlayer.getColor() + " player.");
-//        
-        
+    
         //Is the end square empty?
         if (!board.isCellEmpty(x2, y2)) {
             return false;
         }
-//        System.out.println(this.toString());
-//        System.out.println("End square is empty.");
-//        
+        
+        //Is the piece trying to move backwards? A non-king red 
+        //piece can only increase its X, a non-king black piece
+        //can only decrease its X.
+        if (currentPlayer.getColor() == "red" && !piece.isKing() && x2 < x1) {
+        	return false;
+        } else if (currentPlayer.getColor() == "black" && !piece.isKing() && x2 > x1) {
+        	return false;
+        }
+     
         //Is the move the same number of spaces X and Y?
         if (Math.abs(x2 - x1) != Math.abs(y2 - y1)) {
         	return false;
         }
-//        System.out.println(this.toString());
-//        System.out.println("Same #spaces x and y");
-//        
+      
         if (Math.abs(x2 - x1) > 2) {
         	return false;
-        }
-        
-//        System.out.println(this.toString());
-//        System.out.println("Not moving too far");
-//        
+        }      
         
         //If they moved 2 squares, is it a valid capture?
         if (x2 - x1 == 2) {
@@ -103,13 +98,13 @@ public class Move {
         	if (y2 - y1 == 2) {
         		piece = board.getPieceAtPosition(x1 + 1, y1 + 1);
         		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
-        	            return false;
+        			 return false;
         	        }
             //moved southwest
         	} else if (y2 - y1 == -2) {
         		piece = board.getPieceAtPosition(x1 + 1, y1 - 1);
-       		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
-       	            return false;
+        		if (piece == null || piece.getColor() == currentPlayer.getColor()) {
+        			return false;
        	        }
         	}        	
         }
@@ -119,24 +114,22 @@ public class Move {
         	if (y2 - y1 == 2) {
         		piece = board.getPieceAtPosition(x1 - 1, y1 + 1);
         		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
-        	            return false;
+        			 return false;
         	        }
             //moved northwest
         	} else if (y2 - y1 == -2) {
         		piece = board.getPieceAtPosition(x1 - 1, y1 - 1);
        		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
-       	            return false;
+       			 return false;
        	        }
         	}        	
         }
-//        System.out.println(this.toString());
-//        System.out.println("If it's a capture attempt, it's valid.");
-//        
+        
         return true;   
     }
-    
+
     public boolean isCaptureMove() {
-    	if (Math.abs(this.endX) - Math.abs(this.startX) == 2) {
+    	if (Math.abs(this.endX - this.startX) == 2) {
         	return true;
         }
     	return false;

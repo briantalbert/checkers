@@ -31,7 +31,7 @@ public class Player {
     //Add piece to this player's list. Should only
     //be used at initialization.
     public void addPiece(Piece piece) {
-        pieces.add(piece);
+    	pieces.add(piece);
     }
     
     //Remove piece (if captured)
@@ -62,20 +62,29 @@ public class Player {
     	List<Piece> movablePieces = new ArrayList<>();
     	
 		Scanner input = new Scanner(System.in);
-    	int ctr = 1;
+    	
     	
         for (Piece piece : pieces) {
         	if (piece.getValidMoves(board, player).size() > 0) {
-        		
         		movablePieces.add(piece);
-	        	System.out.println(ctr + ". (" + piece.getRow() + ", " + piece.getCol() + ")");
-	        	++ctr;
         	}
         }
-        ctr = 1;
+        
+        int ctr = 1;
+        for (Piece piece : movablePieces) {
+        	System.out.println(ctr + ". (" + piece.getRow() + ", " + piece.getCol() + ")");
+        	++ctr;
+        }
+        
+        
         System.out.print("Enter the number for the piece you wish to move >");
         int idx = input.nextInt();
+        while (idx < 0 || idx > movablePieces.size()) {
+        	System.out.print("Enter the number for the piece you wish to move >");
+            idx = input.nextInt();
+        }
         Piece chosenPiece = movablePieces.get(idx - 1);
+        
         int x1 = chosenPiece.getRow();
         int y1 = chosenPiece.getCol();
         for (int i = 0; i < 8; i++) {
@@ -89,13 +98,18 @@ public class Player {
         	}
         }
         
+        ctr = 1;
         for (Move move : validMoves) {
-        	System.out.println(ctr + ". " + move.toString());
+        	System.out.println(ctr + ". " + move.toString() + (move.isCaptureMove() ? "*" : ""));
         	++ctr;
         }
         
         System.out.print("Enter the number for the move you wish to make >");
         idx = input.nextInt();
+        while (idx < 0 || idx > validMoves.size()) {
+        	System.out.print("Enter the number for the move you wish to make >");
+            idx = input.nextInt();
+        }
         Move chosenMove = validMoves.get(idx - 1);
         
     	return chosenMove;

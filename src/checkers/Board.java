@@ -96,23 +96,6 @@ public class Board {
         return false;
     }
     
-    //Check if piece can be promoted to king. If a red piece gets to the last row, it is 
-    //valid for promotion. If a black piece gets to the top row, it is valid for 
-    //promotion.
-    public boolean isCellValidForPromotion(int x, String color) {
-        if (color == "red" && x == 7) {
-        	return true;
-        } else if (color == "black" && x == 0) {
-        	return true;
-        }
-        
-        return false;
-    }
-    
-    //Set piece as king
-    public void promoteToKing(int x, int y) {
-        pieces[x][y].setKing(true);
-    }
     
     //Get list of lists of cells with a specified color piece
     public ArrayList<ArrayList<Integer>> getOccupiedCells(String color) {
