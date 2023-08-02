@@ -135,6 +135,12 @@ public class Move {
         return true;   
     }
     
+    public boolean isCaptureMove() {
+    	if (Math.abs(this.endX) - Math.abs(this.startX) == 2) {
+        	return true;
+        }
+    	return false;
+    }
 
     @Override
     public String toString() {

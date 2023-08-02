@@ -25,7 +25,7 @@ public class Game {
             Move move = new Move(0,0,0,0); //Invalid move to trigger while loop
             
             while (!move.isValidMove(board, currentPlayer)) {
-            	move = currentPlayer.getMove(board, currentPlayer); // Implement this method to get player's move
+            	move = currentPlayer.getMove(board, currentPlayer); 
             }
             
             makeMove(move);
@@ -46,8 +46,21 @@ public class Game {
     	
     	int y1 = move.getStartY();
     	int y2 = move.getEndY();
-    	System.out.println(x1 + x2 + y1 + y2);
-        // Implement the logic to update the board based on the move
+
+    	Piece pieceToMove = board.getPieceAtPosition(x1, y1);
+    	board.removePieceAtPosition(x1, y1);
+    	board.setPieceAtPosition(x2, y2, pieceToMove);
+    	
+    	if (move.isCaptureMove()) {
+    		int midX = (x1 + x2) / 2;
+            int midY = (y1 + y2) / 2;
+            
+            Piece capturedPiece = board.getPieceAtPosition(midX, midY);
+            board.removePieceAtPosition(midX, midY);
+            currentPlayer.capturePiece(capturedPiece);
+            
+    	}
+    	// Implement the logic to update the board based on the move
         // This should update the positions of pieces, handle captures, and promote kings.
     }
 
@@ -56,7 +69,7 @@ public class Game {
     }
 
     private void displayWinner() {
-        // Implement the logic to display the winner of the game
+        System.out.println("Game over! The " + currentPlayer.getColor() + " player wins!");
     }
 
 }
