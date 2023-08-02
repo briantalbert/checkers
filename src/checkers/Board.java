@@ -1,5 +1,7 @@
 package checkers;
 
+import java.util.ArrayList;
+
 public class Board {
     private static final int BOARD_SIZE = 8;
     private Piece[][] pieces;
@@ -15,7 +17,7 @@ public class Board {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 if ((row + col) % 2 != 0) { // Place pieces on alternate cells for a checkerboard pattern
-                    Piece redPiece = new Piece("red");
+                    Piece redPiece = new Piece("red", row, col);
                     pieces[row][col] = redPiece;
                     player1.addPiece(redPiece);
                 }
@@ -26,13 +28,12 @@ public class Board {
         for (int row = 5; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 if ((row + col) % 2 != 0) { // Place pieces on alternate cells for a checkerboard pattern
-                    Piece blackPiece = new Piece("black");
+                    Piece blackPiece = new Piece("black", row, col);
                     pieces[row][col] = blackPiece;
                     player2.addPiece(blackPiece);
                 }
             }
         }
-        this.printBoard();
     }
 
     //Return true if the position is on a standard checkerboard.
@@ -111,6 +112,23 @@ public class Board {
     //Set piece as king
     public void promoteToKing(int x, int y) {
         pieces[x][y].setKing(true);
+    }
+    
+    //Get list of lists of cells with a specified color piece
+    public ArrayList<ArrayList<Integer>> getOccupiedCells(String color) {
+    	ArrayList<ArrayList<Integer>> piecesList = new ArrayList<>();
+    	ArrayList<Integer> cell = new ArrayList<Integer>();
+    	
+    	for (int row = 0; row < BOARD_SIZE; row++) {
+    		for (int col = 0; col < BOARD_SIZE; col++) {
+    			if (pieces[row][col] != null && pieces[row][col].getColor() == color) {
+    				cell.add(row);
+    				cell.add(col);
+    				piecesList.add(cell);
+    			}
+    		}
+    	}
+    	return piecesList;
     }
     
     //Print the board to console.
