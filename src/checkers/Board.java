@@ -115,7 +115,9 @@ public class Board {
     }
     
     //Print the board to console.
-    public void printBoard() {
+    public void printBoard(Player currentPlayer, Player player1, Player player2) {
+    	String whoseTurn = (currentPlayer.getColor() + "'s turn!");
+    	
         System.out.println("    0  1  2  3  4  5  6  7");
         System.out.println("  +------------------------");
         for (int row = 0; row < BOARD_SIZE; row++) {
@@ -139,7 +141,16 @@ public class Board {
         		} else {
         			System.out.print(".  ");
         		}
+        	} if (row == 1) {
+        		System.out.print(whoseTurn);
+        	} else if (row == 3) {
+        		System.out.print("Remaining pieces:");
+        	} else if (row == 4) {
+        		System.out.print("Red: " + player1.getPieces().size());
+        	} else if (row == 5) {
+        		System.out.print("Black: " + player2.getPieces().size());
         	}
+        	
         	System.out.println();
         }
     }

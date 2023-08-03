@@ -23,7 +23,7 @@ public class Game {
         while (!isGameOver) {
         	System.out.print("\033[H\033[2J");
             System.out.flush();
-            displayBoard();
+            board.printBoard(currentPlayer, player1, player2);
             Move move = new Move(0,0,0,0); //Invalid move to trigger while loop
             
             while (!move.isValidMove(board, currentPlayer)) {
@@ -41,7 +41,6 @@ public class Game {
         }
     }
 
-    
     private void makeMove(Move move) {
     	int x1 = move.getStartX();
     	int x2 = move.getEndX();
@@ -74,10 +73,6 @@ public class Game {
     		pieceToMove.setKing(true);	
     	}
     	
-    }
-
-    private void displayBoard() {
-        board.printBoard();
     }
 
     private void displayWinner() {
