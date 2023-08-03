@@ -112,9 +112,8 @@ public class Player {
         }
         Move chosenMove = validMoves.get(idx - 1);
         
+        input.close();
     	return chosenMove;
     }
 }
 
-//System.out.println("Enter starting square in the form \"row, column\".");
-//System.out.print("For example - 5,3:");

@@ -93,37 +93,16 @@ public class Move {
         }      
         
         //If they moved 2 squares, is it a valid capture?
-        if (x2 - x1 == 2) {
-        	//Moved southeast
-        	if (y2 - y1 == 2) {
-        		piece = board.getPieceAtPosition(x1 + 1, y1 + 1);
-        		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
-        			 return false;
-        	        }
-            //moved southwest
-        	} else if (y2 - y1 == -2) {
-        		piece = board.getPieceAtPosition(x1 + 1, y1 - 1);
-        		if (piece == null || piece.getColor() == currentPlayer.getColor()) {
-        			return false;
-       	        }
-        	}        	
-        }
-        
-        if (x2 - x1 == -2) {
-        	//Moved northeast
-        	if (y2 - y1 == 2) {
-        		piece = board.getPieceAtPosition(x1 - 1, y1 + 1);
-        		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
-        			 return false;
-        	        }
-            //moved northwest
-        	} else if (y2 - y1 == -2) {
-        		piece = board.getPieceAtPosition(x1 - 1, y1 - 1);
-       		 if (piece == null || piece.getColor() == currentPlayer.getColor()) {
-       			 return false;
-       	        }
-        	}        	
-        }
+        if (this.isCaptureMove()) {
+        	int midX = (x1 + x2) / 2;
+            int midY = (y1 + y2) / 2;
+            
+            Piece capturedPiece = board.getPieceAtPosition(midX, midY);
+            
+            if (capturedPiece == null || capturedPiece.getColor() == currentPlayer.getColor()) {
+            	return false;
+            }
+        }        
         
         return true;   
     }
