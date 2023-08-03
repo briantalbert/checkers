@@ -112,7 +112,6 @@ public class Player {
         }
         Move chosenMove = validMoves.get(idx - 1);
         
-        input.close();
     	return chosenMove;
     }
 }
