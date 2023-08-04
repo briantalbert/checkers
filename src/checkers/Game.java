@@ -10,11 +10,13 @@ public class Game {
     public static void main(String[] args) {
     	Game game = new Game();
     	game.start();
+    	
     }
     public Game() {
         player1 = new Player("red"); // Assuming Red starts the game
         player2 = new Player("black");
         board = new Board(player1, player2);
+    	CheckersGUI boardGUI = new CheckersGUI(board);
         currentPlayer = player1;
         isGameOver = false;
     }
